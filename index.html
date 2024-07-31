@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>剪刀石头布</title>
+  </head>
+  <body>
+    <section class="game">
+      <div class="score">
+        <div class="player-score">
+          <h2>玩家</h2>
+          <p>0</p>
+        </div>
+        <div class="computer-score">
+          <h2>电脑</h2>
+          <p>0</p>
+        </div>
+      </div>
+
+      <div class="intro">
+        <h1>剪刀石头布</h1>
+        <button>开始</button>
+      </div>
+
+      <div class="match fadeOut">
+        <h2 class="winner">请出拳</h2>
+        <div class="hands">
+          <img class="player-hand" src="./assets/石头.png" alt="" />
+          <img class="computer-hand" src="./assets/石头.png" alt="" />
+        </div>
+        <div class="options">
+          <button class="石头">石头</button>
+          <button class="布">布</button>
+          <button class="剪刀">剪刀</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
