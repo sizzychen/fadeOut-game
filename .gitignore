@@ -1,0 +1,12 @@
+
+.git/
+.1024.nix
+.1024feature*
+.nfs*
+*.dll
+*.swp
+.paas-unit-*
+core.*
+.breakpoints
+.idea/
+.vscode/
