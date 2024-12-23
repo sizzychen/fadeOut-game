@@ -14,7 +14,7 @@ const game = () => {
     });
   };
   //Play Match
-  const playMatch = () => {
+const playMatch = () => {
     const options = document.querySelectorAll(".options button");
     const playerHand = document.querySelector(".player-hand");
     const computerHand = document.querySelector(".computer-hand");
@@ -28,6 +28,18 @@ const game = () => {
     //Computer Options
     const computerOptions = ["Rock", "Paper", "Scissors"];
 
+    let history = []; // Initialize history array
+
+    const recordHistory = (playerChoice, computerChoice, result) => {
+      history.push({ playerChoice, computerChoice, result });
+      console.log(history); // Print history for testing, can be removed
+    };
+
+    const updateHands = (playerChoice, computerChoice) => {
+      playerHand.src = `./assets/${playerChoice}.png`;
+      computerHand.src = `./assets/${computerChoice}.png`;
+    };
+
     options.forEach(option => {
       option.addEventListener("click", function() {
         //Computer Choice
@@ -38,8 +50,7 @@ const game = () => {
           //Here is where we call compare hands
           compareHands(this.textContent, computerChoice);
           //Update Images
-          playerHand.src = `./assets/${this.textContent}.png`;
-          computerHand.src = `./assets/${computerChoice}.png`;
+          updateHands(this.textContent, computerChoice);
         }, 2000);
         //Animation
         playerHand.style.animation = "shakePlayer 2s ease";
