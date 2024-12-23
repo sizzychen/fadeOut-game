@@ -26,7 +26,7 @@ const game = () => {
       });
     });
     //Computer Options
-    const computerOptions = ["石头", "布", "剪刀"];
+    const computerOptions = ["Rock", "Paper", "Scissors"];
 
     options.forEach(option => {
       option.addEventListener("click", function() {
@@ -60,46 +60,46 @@ const game = () => {
     const winner = document.querySelector(".winner");
     //Checking for a tie
     if (playerChoice === computerChoice) {
-      winner.textContent = "平局";
+      winner.textContent = "Draw";
       return;
     }
     //Check for Rock
-    if (playerChoice === "石头") {
-      if (computerChoice === "剪刀") {
-        winner.textContent = "玩家赢";
+    if (playerChoice === "Rock") {
+      if (computerChoice === "Scissors") {
+        winner.textContent = "Player wins";
         pScore++;
         updateScore();
         return;
       } else {
-        winner.textContent = "电脑赢";
+        winner.textContent = "Computer wins";
         cScore++;
         updateScore();
         return;
       }
     }
     //Check for Paper
-    if (playerChoice === "布") {
-      if (computerChoice === "剪刀") {
-        winner.textContent = "电脑赢";
+    if (playerChoice === "Paper") {
+      if (computerChoice === "Scissors") {
+        winner.textContent = "Computer wins";
         cScore++;
         updateScore();
         return;
       } else {
-        winner.textContent = "玩家赢";
+        winner.textContent = "Player wins";
         pScore++;
         updateScore();
         return;
       }
     }
     //Check for Scissors
-    if (playerChoice === "剪刀") {
-      if (computerChoice === "石头") {
-        winner.textContent = "电脑赢";
+    if (playerChoice === "Scissors") {
+      if (computerChoice === "Rock") {
+        winner.textContent = "Computer wins";
         cScore++;
         updateScore();
         return;
       } else {
-        winner.textContent = "玩家赢";
+        winner.textContent = "Player wins";
         pScore++;
         updateScore();
         return;
