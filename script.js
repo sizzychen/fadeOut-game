@@ -28,11 +28,13 @@ const playMatch = () => {
     //Computer Options
     const computerOptions = ["Rock", "Paper", "Scissors"];
 
-    let history = []; // Initialize history array
+let history = []; // Initialize history array
 
     const recordHistory = (playerChoice, computerChoice, result) => {
-      history.push({ playerChoice, computerChoice, result });
+      const timestamp = new Date().toLocaleString();
+      history.push({ playerChoice, computerChoice, result, timestamp });
       console.log(history); // Print history for testing, can be removed
+      updateHistoryTable();
     };
 
     const updateHands = (playerChoice, computerChoice) => {
