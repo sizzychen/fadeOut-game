@@ -28,7 +28,8 @@ const playMatch = () => {
     //Computer Options
     const computerOptions = ["Rock", "Paper", "Scissors"];
 
-    let history = []; // Initialize history array
+    
+  let history = []; // Initialize history array.
 
 const recordHistory = (playerChoice, computerChoice, result) => {
       history.push({ playerChoice, computerChoice, result });
