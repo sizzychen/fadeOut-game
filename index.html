@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./style.css" />
 <title>Rock Paper Scissors</title>
   </head>
-  <body>
+<body>
     <section class="game">
       <div class="score">
         <div class="player-score">
@@ -37,6 +37,20 @@
           <button class="Scissors" data-choice="Scissors">Scissors</button>
         </div>
       </div>
+
+      <table id="historyTable">
+        <thead>
+          <tr>
+            <th>User Move</th>
+            <th>Computer Move</th>
+            <th>Outcome</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- History will be populated here -->
+        </tbody>
+      </table>
     </section>
 
     <script src="script.js"></script>

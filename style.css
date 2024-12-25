@@ -17,6 +17,28 @@ section {
   justify-content: space-around;
   align-items: center;
 }
+
+#historyTable {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  color: rgb(224, 224, 224);
+}
+
+#historyTable th,
+#historyTable td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid rgb(224, 224, 224);
+}
+
+#historyTable th {
+  background-color: rgb(45, 117, 96);
+}
+
+#historyTable tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 .score h2 {
   font-size: 30px;
 }
