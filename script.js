@@ -30,9 +30,9 @@ const playMatch = () => {
 
     let history = []; // Initialize history array
 
-    const recordHistory = (playerChoice, computerChoice, result) => {
+const recordHistory = (playerChoice, computerChoice, result) => {
       history.push({ playerChoice, computerChoice, result });
-      console.log(history); // Print history for testing, can be removed
+      updateHistoryDisplay();
     };
 
     const updateHands = (playerChoice, computerChoice) => {
@@ -122,6 +122,16 @@ const playMatch = () => {
   startGame();
   playMatch();
 };
+function updateHistoryDisplay() {
+    const historyList = document.getElementById('history-list');
+    historyList.innerHTML = ''; // Clear previous history
+    history.forEach(entry => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Player: ${entry.player}, Computer: ${entry.computer}, Result: ${entry.result}`;
+        historyList.appendChild(listItem);
+    });
+}
 
+// Call this function after recording each gesture
 //start the game function
 game();
