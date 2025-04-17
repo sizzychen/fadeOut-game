@@ -1,1 +1,2 @@
-run_command: browser-sync start --server --port 8080 --no-notify --no-open --files '**/*.css, **/*.html, **/*.js'
+# Command to run when "Run" button clicked
+run_command: browser-sync start --server --no-notify --no-open --files '**/*.css, **/*.html, **/*.js'
