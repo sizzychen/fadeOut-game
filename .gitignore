@@ -11,3 +11,51 @@ core.*
 .breakpoints
 .idea/
 .vscode/
+
+# JavaScript/Web Development
+node_modules/
+bower_components/
+dist/
+build/
+coverage/
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Browser-sync
+.browser-sync-*/
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+.cache/
+
+# Editor specific
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools/
+*~
+.sass-cache/
+*.scssc
