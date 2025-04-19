@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: sans-serif;
+  background-color: rgb(39, 41, 68);
+  color: rgb(224, 224, 224);
+}
+
 section {
   height: 100vh;
   background-color: rgb(39, 41, 68);
@@ -12,6 +18,128 @@ section {
   min-height: 100vh; 
 }
 
+/* Game Center Styles */
+.game-center {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.game-center header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.game-center header h1 {
+  font-size: 48px;
+  color: rgb(224, 224, 224);
+  margin-bottom: 20px;
+}
+
+.game-center main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.game-card {
+  width: 300px;
+  min-height: 400px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.game-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.game-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.game-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.game-card p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.play-button {
+  display: block;
+  width: 100%;
+  background-color: rgb(45, 117, 96);
+  color: rgb(224, 224, 224);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.play-button:hover {
+  background-color: rgb(33, 89, 73);
+}
+
+.game-center footer {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+/* Back to Game Center link */
+.back-link {
+  display: inline-block;
+  background-color: rgb(45, 117, 96);
+  color: rgb(224, 224, 224);
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 15px 0 0 15px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: rgb(33, 89, 73);
+}
+
+/* Existing Rock Paper Scissors Game Styles */
 .score {
   color: rgb(224, 224, 224);
   height: 20vh;
@@ -108,6 +236,7 @@ div.fadeIn {
 
 
 
+
 @keyframes shakePlayer {
   0% {
     transform: rotateY(180deg) translateY(0px);
@@ -166,4 +295,206 @@ div.fadeIn {
   100% {
     transform: translateY(0px);
   }
+}
+
+/* 2048 Game Styles */
+.game-2048 {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px 30px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.score-container {
+  display: flex;
+  gap: 15px;
+}
+
+.score-container > div {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.score-title {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.grid-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  width: 380px;
+  height: 380px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.grid-row {
+  display: contents;
+}
+
+.grid-row:last-child {
+  margin-bottom: 0;
+}
+
+.grid-cell {
+  width: 78px;
+  height: 78px;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  overflow: hidden;
+  position: relative;
+}
+
+.tile {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: appear 0.3s cubic-bezier(0.2, 0.6, 0.4, 1);
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  line-height: 1;
+  font-weight: bold;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.tile-2,
+.tile-4,
+.tile-8,
+.tile-16,
+.tile-32,
+.tile-64 {
+  background: rgb(238, 228, 218); color: rgb(118, 110, 101);
+  font-size: 26px;
+}
+.tile-4 { background: rgb(237, 224, 200); color: rgb(118, 110, 101); }
+.tile-8 { background: rgb(242, 177, 121); color: white; }
+.tile-16 { background: rgb(245, 149, 99); color: white; }
+.tile-32 { background: rgb(246, 124, 95); color: white; }
+.tile-64 { background: rgb(246, 94, 59); color: white; }
+.tile-128 { background: rgb(237, 207, 114); color: white; }
+.tile-256 { background: rgb(237, 204, 97); color: white; }
+.tile-512 { background: rgb(237, 200, 80); color: white; }
+.tile-1024 { background: rgb(237, 197, 63); color: white; }
+.tile-2048 { background: rgb(237, 194, 46); color: white; }
+
+.tile-128,
+.tile-256,
+.tile-512 {
+  font-size: 22px;
+}
+
+.tile-1024,
+.tile-2048 {
+  font-size: 18px;
+}
+
+@keyframes appear {
+  0% { opacity: 0; transform: scale(0); }
+  30% { opacity: 0.5; transform: scale(0.5); }
+  70% { opacity: 0.8; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.tile-merged {
+  animation: merge 0.3s cubic-bezier(0.2, 0.6, 0.4, 1);
+  transform-origin: center center;
+}
+
+@keyframes merge {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.03); }
+  70% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+#new-game-button {
+  background: rgb(45, 117, 96);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+
+#new-game-button:hover {
+  background: rgb(33, 89, 73);
+}
+
+.game-instructions {
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .tile-2,
+  .tile-4,
+  .tile-8,
+  .tile-16,
+  .tile-32,
+  .tile-64 {
+    font-size: 22px;
+  }
+
+  .tile-128,
+  .tile-256,
+  .tile-512 {
+    font-size: 18px;
+  }
+
+  .tile-1024,
+  .tile-2048 {
+    font-size: 16px;
+  }
+  .grid-container {
+    width: 340px;
+    height: 340px;
+    grid-gap: 8px;
+    padding: 10px;
+  }
+  
+  .grid-cell {
+    width: 72px;
+    height: 72px;
+    font-size: 20px;
+  }
+}
+
+.game-intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-intro p {
+    margin-bottom: 10px;
 }
