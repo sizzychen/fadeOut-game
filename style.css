@@ -237,6 +237,7 @@ div.fadeIn {
 
 
 
+
 @keyframes shakePlayer {
   0% {
     transform: rotateY(180deg) translateY(0px);
@@ -497,4 +498,175 @@ div.fadeIn {
 
 .game-intro p {
     margin-bottom: 10px;
+}
+
+/* Pinyin Game Styles */
+.pinyin-game {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pinyin-game .game-settings {
+  margin: 20px 0;
+}
+
+.pinyin-game .mode-selection,
+.pinyin-game .difficulty-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.pinyin-game .mode-btn,
+.pinyin-game .difficulty-btn {
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pinyin-game .mode-btn.active,
+.pinyin-game .difficulty-btn.active {
+  border-color: rgb(45, 117, 96);
+  background: rgba(45, 117, 96, 0.3);
+}
+
+.pinyin-game .mode-btn:hover,
+.pinyin-game .difficulty-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pinyin-game .start-btn {
+  background: rgb(45, 117, 96);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin: 20px 0;
+}
+
+.pinyin-game .progress-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 15px;
+}
+
+.pinyin-game .progress-bar {
+  flex: 1;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pinyin-game .progress-fill {
+  height: 100%;
+  background: rgb(45, 117, 96);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.pinyin-game .question {
+  font-size: 48px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.pinyin-game .options-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.pinyin-game .option-btn {
+  padding: 15px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.pinyin-game .option-btn.correct {
+  background: rgba(0, 128, 0, 0.6);
+}
+
+.pinyin-game .option-btn.wrong {
+  background: rgba(255, 0, 0, 0.6);
+}
+
+.pinyin-game .modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.pinyin-game .modal-content {
+  background: rgb(39, 41, 68);
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.pinyin-game .mode-select-btn {
+    background: #FFA500;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pinyin-game .mode-select-btn:hover {
+    background: #FF8C00;
+}
+
+@media (max-width: 600px) {
+  .pinyin-game .question {
+    font-size: 36px;
+    padding: 20px;
+  }
+  
+  .pinyin-game .option-btn {
+    padding: 12px 8px;
+    font-size: 16px;
+  }
+  
+  .pinyin-game .options-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+    .pinyin-game .action-buttons {
+        flex-direction: column;
+    }
+    
+    .pinyin-game .mode-select-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
