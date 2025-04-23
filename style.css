@@ -670,3 +670,343 @@ div.fadeIn {
         margin: 5px 0;
     }
 }
+
+/* Go Game Styles */
+.go-game {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.go-game .game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.go-game .game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .go-game .game-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.go-game .board-container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+}
+
+.go-game .go-board {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: #DEB887; /* 棋盘颜色 */
+    border: 2px solid #8B4513;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.go-game .board-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+}
+
+.go-game .board-grid.size-9 {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+}
+
+.go-game .board-grid.size-19 {
+    grid-template-columns: repeat(19, 1fr);
+    grid-template-rows: repeat(19, 1fr);
+}
+
+.go-game .grid-line {
+    position: absolute;
+    background-color: #000;
+}
+
+.go-game .horizontal-line {
+    height: 1px;
+    width: 100%;
+}
+
+.go-game .vertical-line {
+    width: 1px;
+    height: 100%;
+}
+
+.go-game .star-point {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.go-game .intersection {
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.go-game .stone {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+.go-game .stone.black {
+    background: radial-gradient(circle at 30% 30%, #444, #000);
+}
+
+.go-game .stone.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+}
+
+.go-game .liberty {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 255, 0, 0.3);
+    border: 2px solid rgba(0, 255, 0, 0.6);
+    z-index: 2;
+}
+
+.go-game .highlight {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #FFD700;
+    z-index: 4;
+    animation: pulse 1.5s infinite;
+}
+
+.go-game .territory {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.go-game .territory.black {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.go-game .territory.white {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.go-game .lesson-container {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.go-game .lesson-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #FFD700;
+}
+
+.go-game .lesson-content {
+    flex: 1;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.go-game .lesson-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.go-game .action-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.go-game .retry-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.go-game .retry-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.go-game .next-btn {
+    background-color: rgb(45, 117, 96);
+    color: white;
+}
+
+.go-game .next-btn:hover {
+    background-color: rgb(33, 89, 73);
+}
+
+.go-game .next-btn:disabled {
+    background-color: rgba(45, 117, 96, 0.5);
+    cursor: not-allowed;
+}
+
+.go-game .progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.go-game .progress-bar {
+    height: 100%;
+    background-color: rgb(45, 117, 96);
+    transition: width 0.5s ease;
+}
+
+.go-game .feedback-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.go-game .feedback-message.success {
+    background-color: rgba(0, 128, 0, 0.2);
+    color: #90EE90;
+    opacity: 1;
+}
+
+.go-game .feedback-message.error {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #FFA07A;
+    opacity: 1;
+}
+
+.go-game .stone-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.go-game .stone-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.go-game .stone-option.black {
+    background: radial-gradient(circle at 30% 30%, #444, #000);
+}
+
+.go-game .stone-option.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+}
+
+.go-game .stone-option.selected {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px #FFD700;
+}
+
+.go-game .lesson-complete {
+    text-align: center;
+    padding: 20px;
+}
+
+.go-game .lesson-complete h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+}
+
+.go-game .lesson-complete .stars {
+    font-size: 48px;
+    color: #FFD700;
+    margin: 20px 0;
+}
+
+.go-game .lesson-complete button {
+    background-color: rgb(45, 117, 96);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.go-game .lesson-complete button:hover {
+    background-color: rgb(33, 89, 73);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .go-game .board-container {
+        max-width: 350px;
+    }
+    
+    .go-game .star-point {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .go-game .lesson-actions {
+        flex-direction: column;
+    }
+    
+    .go-game .action-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

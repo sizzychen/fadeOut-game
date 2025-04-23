@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style.css">
+    <title>围棋教学 - 围棋入门</title>
+    <style>
+        /* 围棋游戏特定样式 */
+        .go-game {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .game-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+        
+        .board-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .go-board {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: #DEB887; /* 棋盘颜色 */
+            border: 2px solid #8B4513;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .board-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+        }
+        
+        .board-grid.size-9 {
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(9, 1fr);
+        }
+        
+        .board-grid.size-19 {
+            grid-template-columns: repeat(19, 1fr);
+            grid-template-rows: repeat(19, 1fr);
+        }
+        
+        .grid-line {
+            position: absolute;
+            background-color: #000;
+        }
+        
+        .horizontal-line {
+            height: 1px;
+            width: 100%;
+        }
+        
+        .vertical-line {
+            width: 1px;
+            height: 100%;
+        }
+        
+        .star-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .intersection {
+            position: relative;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .stone {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+        
+        .stone.black {
+            background: radial-gradient(circle at 30% 30%, #444, #000);
+        }
+        
+        .stone.white {
+            background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        }
+        
+        .liberty {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 255, 0, 0.3);
+            border: 2px solid rgba(0, 255, 0, 0.6);
+            z-index: 2;
+        }
+        
+        .highlight {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid #FFD700;
+            z-index: 4;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .territory {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        
+        .territory.black {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .territory.white {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .lesson-container {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .lesson-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+        
+        .lesson-content {
+            flex: 1;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .lesson-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .retry-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .retry-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .next-btn {
+            background-color: rgb(45, 117, 96);
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background-color: rgb(33, 89, 73);
+        }
+        
+        .next-btn:disabled {
+            background-color: rgba(45, 117, 96, 0.5);
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: rgb(45, 117, 96);
+            transition: width 0.5s ease;
+        }
+        
+        .feedback-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .feedback-message.success {
+            background-color: rgba(0, 128, 0, 0.2);
+            color: #90EE90;
+            opacity: 1;
+        }
+        
+        .feedback-message.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #FFA07A;
+            opacity: 1;
+        }
+        
+        .stone-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stone-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+        
+        .stone-option.black {
+            background: radial-gradient(circle at 30% 30%, #444, #000);
+        }
+        
+        .stone-option.white {
+            background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        }
+        
+        .stone-option.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px #FFD700;
+        }
+        
+        .lesson-complete {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .lesson-complete h2 {
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        
+        .lesson-complete .stars {
+            font-size: 48px;
+            color: #FFD700;
+            margin: 20px 0;
+        }
+        
+        .lesson-complete button {
+            background-color: rgb(45, 117, 96);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .lesson-complete button:hover {
+            background-color: rgb(33, 89, 73);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .board-container {
+                max-width: 350px;
+            }
+            
+            .star-point {
+                width: 6px;
+                height: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">Back to Game Center</a>
+    
+    <section class="go-game">
+        <header class="game-header">
+            <h1>围棋入门教学</h1>
+            <p>跟随步骤学习围棋的基本规则</p>
+        </header>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="game-container">
+            <div class="board-container">
+                <div class="go-board">
+                    <div class="board-grid size-9" id="boardGrid">
+                        <!-- 棋盘格线和交叉点将通过JS动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="stone-selection" id="stoneSelection">
+                    <div class="stone-option black selected" data-color="black"></div>
+                    <div class="stone-option white" data-color="white"></div>
+                </div>
+            </div>
+            
+            <div class="lesson-container">
+                <h2 class="lesson-title" id="lessonTitle">第一步：认识棋盘和棋子</h2>
+                <div class="lesson-content" id="lessonContent">
+                    <p>这是围棋棋盘，格子上的交叉点是棋子的落点。</p>
+                    <p>围棋有两种棋子：黑棋和白棋。黑棋先下哦！</p>
+                    <p>请选择黑棋，然后点击棋盘上的任意交叉点放置棋子。</p>
+                </div>
+                
+                <div class="feedback-message" id="feedbackMessage"></div>
+                
+                <div class="lesson-actions">
+                    <button class="action-btn retry-btn" id="retryBtn">重试</button>
+                    <button class="action-btn next-btn" id="nextBtn" disabled>下一步</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 课程完成页面 -->
+        <div class="lesson-complete" id="lessonComplete" style="display: none;">
+            <h2>恭喜你完成了围棋基础教学！</h2>
+            <p>你已经学会了围棋的基本规则，包括落子、气、提子、围地和劫争。</p>
+            <div class="stars">★★★</div>
+            <p>继续练习，你会成为围棋高手的！</p>
+            <button id="restartBtn">重新学习</button>
+        </div>
+    </section>
+    
+    <script src="go-game.js"></script>
+</body>
+</html>
