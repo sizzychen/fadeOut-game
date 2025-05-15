@@ -34,17 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
     currentQuestionIndex = 0;
     score = 0;
     wrongAnswers = [];
-    
+
     // 更新UI
     scoreElement.textContent = score;
     updateProgress();
-    
+
     // 根据选择的模式和难度加载题目
     loadQuestions();
-    
+
     // 显示第一个问题
     displayQuestion();
-    
+
     // 切换界面：从设置页到游戏页
     gameSettings.style.display = 'none';
     gameContent.style.display = 'block';
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadQuestions = () => {
     // 从pinyinData获取对应难度的数据
     let data = [];
-    
+
     if (difficulty === 'easy') {
       data = pinyinData.easy;
     } else if (difficulty === 'medium') {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (difficulty === 'hard') {
       data = pinyinData.hard;
     }
-    
+
     // 随机选择totalQuestions个题目
     questions = shuffleArray([...data]).slice(0, totalQuestions);
   };
@@ -76,18 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const currentQ = questions[currentQuestionIndex];
-    
+
     // 根据游戏模式显示不同的问题样式
     if (gameMode === 'char-to-pinyin') {
       // 看字认拼音：显示汉字，选择正确的拼音
       questionElement.textContent = currentQ.character;
-      
+
       // 生成选项（包括一个正确答案和三个干扰项）
       generateOptions(currentQ.pinyin, getPinyinDistractors(currentQ.pinyin));
     } else {
       // 看拼音认字：显示拼音，选择正确的汉字
       questionElement.textContent = currentQ.pinyin;
-      
+
       // 生成选项（包括一个正确答案和三个干扰项）
       generateOptions(currentQ.character, getCharacterDistractors(currentQ.character));
     }
@@ -97,21 +97,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const generateOptions = (correctAnswer, distractors) => {
     // 清空选项容器
     optionsContainer.innerHTML = '';
-    
+
     // 合并正确答案和干扰项，并打乱顺序
     const allOptions = shuffleArray([correctAnswer, ...distractors]);
-    
+
     // 创建选项按钮
     allOptions.forEach(option => {
       const optionBtn = document.createElement('button');
       optionBtn.className = 'option-btn';
       optionBtn.textContent = option;
-      
+
       // 添加点击事件
       optionBtn.addEventListener('click', () => {
         checkAnswer(option, correctAnswer, optionBtn);
       });
-      
+
       optionsContainer.appendChild(optionBtn);
     });
   };
@@ -125,50 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .toLowerCase();
   };
 
-  // 辅助函数：获取拼音干扰项
-  const getPinyinDistractors = (correctPinyin) => {
-    const basePinyin = normalizePinyin(correctPinyin);
-    let sameBase = [];
-    let otherPinyins = [];
-    
-    ['easy', 'medium', 'hard'].forEach(level => {
-      if (pinyinData[level]) {
-        pinyinData[level].forEach(item => {
-          const currentBase = normalizePinyin(item.pinyin);
-          if (item.pinyin !== correctPinyin) {
-            if (currentBase === basePinyin) {
-              if (!sameBase.includes(item.pinyin)) {
-                sameBase.push(item.pinyin);
-              }
-            } else {
-              if (!otherPinyins.includes(item.pinyin)) {
-                otherPinyins.push(item.pinyin);
-              }
-            }
-          }
-        });
-      }
-    });
-    
-    // 合并相同基础和不同基础的拼音，优先选择相同基础的
-    const potentialDistractors = [
-      ...shuffleArray(sameBase),
-      ...shuffleArray(otherPinyins)
-    ];
-    
-    // 确保返回三个不重复的干扰项
-    const uniqueDistractors = [...new Set(potentialDistractors)];
-    return shuffleArray(uniqueDistractors).slice(0, 3);
-  };
-
   // 检查答案
   const checkAnswer = (selectedOption, correctAnswer, optionBtn) => {
     // 禁用所有选项，防止重复点击
     const allOptions = document.querySelectorAll('.option-btn');
     allOptions.forEach(btn => btn.disabled = true);
-    
+
     const isCorrect = selectedOption === correctAnswer;
-    
+
     // 显示反馈（对/错）
     if (isCorrect) {
       optionBtn.classList.add('correct');
@@ -176,21 +140,21 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreElement.textContent = score;
     } else {
       optionBtn.classList.add('wrong');
-      
+
       // 找到并标记正确答案
       allOptions.forEach(btn => {
         if (btn.textContent === correctAnswer) {
           btn.classList.add('correct');
         }
       });
-      
+
       // 记录错题
       wrongAnswers.push({
         question: questions[currentQuestionIndex],
         userAnswer: selectedOption
       });
     }
-    
+
     // 延迟后进入下一题
     setTimeout(() => {
       currentQuestionIndex++;
@@ -212,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalQuestionsElement.textContent = questions.length;
     const percentage = Math.round((score / questions.length) * 100);
     percentageElement.textContent = `${percentage}%`;
-    
+
     // 显示错题
     wrongItemsList.innerHTML = '';
     if (wrongAnswers.length === 0) {
@@ -221,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wrongAnswers.forEach(item => {
         const wrongItem = document.createElement('div');
         wrongItem.className = 'wrong-item';
-        
+
         if (gameMode === 'char-to-pinyin') {
           wrongItem.innerHTML = `
             <div class="question-text">${item.question.character}</div>
@@ -239,11 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
         }
-        
+
         wrongItemsList.appendChild(wrongItem);
       });
     }
-    
+
     // 显示模态框
     resultsModal.style.display = 'flex';
   };
@@ -278,24 +242,121 @@ document.addEventListener('DOMContentLoaded', () => {
     return newArray;
   };
 
-  // 辅助函数：获取汉字干扰项
-  const getCharacterDistractors = (correctChar) => {
-    // 从所有数据中找到三个不同的汉字作为干扰项
-    let allChars = [];
-    
-    // 收集所有难度级别的汉字
+  // 辅助函数：计算字符串的实际字符长度 (汉字或拼音音节数)
+  const getCharacterLength = (str) => {
+    // 检查字符串是否包含拉丁字符，以判断是否为拼音
+    if (/[a-zA-Z]/.test(str)) {
+      // 如果是拼音，则按空格分割计算音节数
+      return str.split(' ').filter(s => s.trim().length > 0).length;
+    } else {
+      // 如果是汉字，则直接返回字符串长度
+      return str.length;
+    }
+  };
+
+  // 辅助函数：获取拼音干扰项
+  const getPinyinDistractors = (correctPinyin) => {
+    const correctPinyinLength = getCharacterLength(correctPinyin);
+    const basePinyin = normalizePinyin(correctPinyin); // 声调归一化后的正确拼音
+
+    let distractorsByCat = {
+      sameBaseSameLength: [],
+      sameBaseOtherLength: [],
+      otherBaseSameLength: [],
+      otherBaseOtherLength: []
+    };
+
     ['easy', 'medium', 'hard'].forEach(level => {
       if (pinyinData[level]) {
         pinyinData[level].forEach(item => {
-          if (item.character !== correctChar && !allChars.includes(item.character)) {
-            allChars.push(item.character);
+          if (item.pinyin === correctPinyin) return; // 跳过正确答案本身
+
+          const itemPinyin = item.pinyin;
+          const itemPinyinLength = getCharacterLength(itemPinyin);
+          const currentItemBase = normalizePinyin(itemPinyin); // 当前项的声调归一化拼音
+
+          const isSameBase = (currentItemBase === basePinyin);
+          const isSameLength = (itemPinyinLength === correctPinyinLength);
+
+          if (isSameBase) {
+            if (isSameLength) {
+              distractorsByCat.sameBaseSameLength.push(itemPinyin);
+            } else {
+              distractorsByCat.sameBaseOtherLength.push(itemPinyin);
+            }
+          } else {
+            if (isSameLength) {
+              distractorsByCat.otherBaseSameLength.push(itemPinyin);
+            } else {
+              distractorsByCat.otherBaseOtherLength.push(itemPinyin);
+            }
           }
         });
       }
     });
-    
-    // 随机选择三个干扰项
-    return shuffleArray(allChars).slice(0, 3);
+
+    // 确保每个分类内部的干扰项是唯一的
+    for (const cat in distractorsByCat) {
+      distractorsByCat[cat] = [...new Set(distractorsByCat[cat])];
+    }
+
+    // 按优先级组合干扰项 (优先长度相同，其次声调相似):
+    // 1. 相同基础拼音、相同字符长度 (sameBaseSameLength)
+    // 2. 不同基础拼音、相同字符长度 (otherBaseSameLength)
+    // 3. 相同基础拼音、不同字符长度 (sameBaseOtherLength)
+    // 4. 不同基础拼音、不同字符长度 (otherBaseOtherLength)
+    const potentialDistractors = [
+      ...shuffleArray(distractorsByCat.sameBaseSameLength),
+      ...shuffleArray(distractorsByCat.otherBaseSameLength),
+      ...shuffleArray(distractorsByCat.sameBaseOtherLength),
+      ...shuffleArray(distractorsByCat.otherBaseOtherLength)
+    ];
+
+    // 从组合后的列表中选取最多3个唯一的干扰项
+    const uniqueDistractors = [...new Set(potentialDistractors)];
+    return shuffleArray(uniqueDistractors).slice(0, 3);
+  };
+
+
+  // 辅助函数：获取汉字干扰项
+  const getCharacterDistractors = (correctChar) => {
+    const correctCharLength = getCharacterLength(correctChar);
+    let sameLengthChars = [];
+    let otherLengthChars = [];
+
+    ['easy', 'medium', 'hard'].forEach(level => {
+      if (pinyinData[level]) {
+        pinyinData[level].forEach(item => {
+          if (item.character === correctChar) return; // 跳过正确答案本身
+
+          const currentItemChar = item.character;
+          const itemCharLength = getCharacterLength(currentItemChar);
+
+          if (itemCharLength === correctCharLength) {
+            // 使用Set或includes确保添加前检查唯一性
+            if (!sameLengthChars.includes(currentItemChar)) {
+                sameLengthChars.push(currentItemChar);
+            }
+          } else {
+            if (!otherLengthChars.includes(currentItemChar)) {
+                otherLengthChars.push(currentItemChar);
+            }
+          }
+        });
+      }
+    });
+
+    // 按优先级组合干扰项：
+    // 1. 长度相同的汉字
+    // 2. 长度不同的汉字
+    const potentialDistractors = [
+      ...shuffleArray(sameLengthChars),
+      ...shuffleArray(otherLengthChars)
+    ];
+
+    // 从组合后的列表中选取最多3个唯一的干扰项
+    const uniqueDistractors = [...new Set(potentialDistractors)];
+    return shuffleArray(uniqueDistractors).slice(0, 3);
   };
 
   // 事件监听器
@@ -304,10 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       // 移除所有按钮的active类
       modeBtns.forEach(b => b.classList.remove('active'));
-      
+
       // 添加active类到当前按钮
       btn.classList.add('active');
-      
+
       // 更新游戏模式
       gameMode = btn.getAttribute('data-mode');
     });
@@ -318,10 +379,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       // 移除所有按钮的active类
       difficultyBtns.forEach(b => b.classList.remove('active'));
-      
+
       // 添加active类到当前按钮
       btn.classList.add('active');
-      
+
       // 更新游戏难度
       difficulty = btn.getAttribute('data-difficulty');
     });
