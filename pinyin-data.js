@@ -2,7 +2,7 @@
  * 拼音测评游戏数据
  * 包含三个难度级别：简单(easy)、中等(medium)和困难(hard)
  * 每个条目包含汉字(character)和对应的拼音(pinyin)
- * 
+ *
  * 声调标记说明：
  * - 阴平(第1声)：平调，用 ā ē ī ō ū ǖ 表示
  * - 阳平(第2声)：升调，用 á é í ó ú ǘ 表示
@@ -38,7 +38,7 @@ const pinyinData = {
     { character: "牛", pinyin: "niú" },
     { character: "猪", pinyin: "zhū" }
   ],
-  
+
   // 中等级别：多音节拼音和常用词汇
   medium: [
     { character: "老师", pinyin: "lǎo shī" },
@@ -64,7 +64,7 @@ const pinyinData = {
     { character: "中午", pinyin: "zhōng wǔ" },
     { character: "晚上", pinyin: "wǎn shang" }
   ],
-  
+
   // 困难级别：复杂拼音和词语
   hard: [
     { character: "美丽", pinyin: "měi lì" },
@@ -91,7 +91,63 @@ const pinyinData = {
     { character: "环保", pinyin: "huán bǎo" },
     { character: "科学", pinyin: "kē xué" },
     { character: "文化", pinyin: "wén huà" },
-    { character: "艺术", pinyin: "yì shù" }
+    { character: "艺术", pinyin: "yì shù" },
+    // 四字成语
+    { character: "一丝不苟", pinyin: "yī sī bù gǒu" },
+    { character: "鞠躬尽瘁", pinyin: "jū gōng jìn cuì" },
+    { character: "锲而不舍", pinyin: "qiè ér bù shě" },
+    { character: "画蛇添足", pinyin: "huà shé tiān zú" },
+    { character: "守株待兔", pinyin: "shǒu zhū dài tù" },
+    // 包含多音字的词组
+    { character: "朝三暮四", pinyin: "zhāo sān mù sì" },
+    { character: "银行行长", pinyin: "yín háng háng zhǎng" },
+    { character: "数量难数", pinyin: "shù liàng nán shǔ" },
+    { character: "乐器演奏曲", pinyin: "yuè qì yǎn zòu qǔ" },
+    { character: "不假思索", pinyin: "bù jiǎ sī suǒ" },
+    // 专业领域词汇
+    { character: "人工智能", pinyin: "rén gōng zhì néng" },
+    { character: "量子物理", pinyin: "liàng zǐ wù lǐ" },
+    { character: "经济学理论", pinyin: "jīng jì xué lǐ lùn" },
+    { character: "分子生物学", pinyin: "fēn zǐ shēng wù xué" },
+    { character: "认知心理学", pinyin: "rèn zhī xīn lǐ xué" },
+    // 包含生僻字的词语
+    { character: "蹉跎岁月", pinyin: "cuō tuó suì yuè" },
+    { character: "犄角旮旯", pinyin: "jī jiǎo gā lá" },
+    { character: "饕餮盛宴", pinyin: "tāo tiè shèng yàn" },
+    { character: "囹圄之苦", pinyin: "líng yǔ zhī kǔ" },
+    { character: "踽踽独行", pinyin: "jǔ jǔ dú xíng" },
+    // 多音节复杂词汇
+    { character: "不可思议", pinyin: "bù kě sī yì" },
+    { character: "百花齐放", pinyin: "bǎi huā qí fàng" },
+    { character: "五光十色", pinyin: "wǔ guāng shí sè" },
+    { character: "无可厚非", pinyin: "wú kě hòu fēi" },
+    { character: "自强不息", pinyin: "zì qiáng bù xī" },
+    // 新增高难度词汇 (Action 2-1)
+    // 四字成语
+    { character: "胸有成竹", pinyin: "xiōng yǒu chéng zhú" },
+    { character: "再接再厉", pinyin: "zài jiē zài lì" },
+    { character: "莫名其妙", pinyin: "mò míng qí miào" },
+    { character: "画龙点睛", pinyin: "huà lóng diǎn jīng" },
+    // 包含多音字的词组
+    { character: "便宜行事", pinyin: "biàn yí xíng shì" },
+    { character: "大发横财", pinyin: "dà fā hèng cái" },
+    { character: "音乐曲调", pinyin: "yīn yuè qǔ diào" },
+    { character: "应付差事", pinyin: "yìng fu chāi shi" },
+    // 专业领域词汇
+    { character: "基因编辑", pinyin: "jī yīn biān jí" },
+    { character: "神经元网络", pinyin: "shén jīng yuán wǎng luò" },
+    { character: "宏观经济", pinyin: "hóng guān jīng jì" },
+    { character: "存在主义", pinyin: "cún zài zhǔ yì" },
+    // 包含生僻字的词语
+    { character: "魑魅魍魉", pinyin: "chī mèi wǎng liǎng" },
+    { character: "沆瀣一气", pinyin: "hàng xiè yī qì" },
+    { character: "龃龉不合", pinyin: "jǔ yǔ bù hé" },
+    { character: "佶屈聱牙", pinyin: "jí qū áo yá" },
+    // 多音节复杂词汇
+    { character: "相辅相成", pinyin: "xiāng fǔ xiāng chéng" },
+    { character: "错综复杂", pinyin: "cuò zōng fù zá" },
+    { character: "潜移默化", pinyin: "qián yí mò huà" },
+    { character: "源远流长", pinyin: "yuán yuǎn liú cháng" }
   ]
 };
 
